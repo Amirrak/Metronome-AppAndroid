@@ -4,6 +4,6 @@ The goal was to offer a metronome that I would like to have as a musician: easy 
 (The app is not yet disponible on the Play Store)
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/79013044/118375176-e759d980-b5b7-11eb-9b68-a3bb3f192c2c.jpg" width="350" title="Screenshot de l'application">
+  <img src="https://user-images.githubusercontent.com/79013044/118375176-e759d980-b5b7-11eb-9b68-a3bb3f192c2c.jpg" title="Screenshot de l'application">
 </p>
 
