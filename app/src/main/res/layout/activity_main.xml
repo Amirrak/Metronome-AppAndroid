@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <View
+        android:id="@+id/rootView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_stop"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="@+id/rootView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="1dp"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/tempoName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:text="Allegro"
+        android:textColor="@color/textStop"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toStartOf="@+id/divider"
+        app:layout_constraintTop_toTopOf="@+id/tempo" />
+
+    <TextView
+        android:id="@+id/tempo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:textColor="@color/textStop"
+        android:text="120"
+        android:textSize="120dp"
+        app:layout_constraintBottom_toTopOf="@+id/divider2"
+        app:layout_constraintEnd_toStartOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/TAP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textSize="200sp"
+        android:visibility="invisible"
+        android:textColor="@color/textTap"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tempo" />
+
+
+    <TextView
+        android:id="@+id/rythm1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="sans-serif-light"
+        android:gravity="left"
+        android:text="4"
+        android:textColor="@color/textStop"
+        android:textSize="82sp"
+        app:layout_constraintBottom_toBottomOf="@+id/rythm1View"
+        app:layout_constraintEnd_toEndOf="@+id/rythm1View"
+        app:layout_constraintHeight_percent="0.150"
+        app:layout_constraintStart_toStartOf="@+id/rythm1View"
+        app:layout_constraintWidth_percent="0.3"/>
+
+    <TextView
+        android:id="@+id/pourcentage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:text="100%"
+        android:textColor="@color/textStart"
+        android:textSize="45sp"
+        app:layout_constraintBottom_toBottomOf="@+id/rythm1View"
+        app:layout_constraintEnd_toEndOf="@+id/rythm1View"
+        app:layout_constraintHeight_percent="0.150"
+        app:layout_constraintStart_toStartOf="@+id/rythm1View"
+        app:layout_constraintWidth_percent="0.3"
+        android:visibility="gone"/>
+
+    <View
+        android:id="@+id/tempoView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/rythm1View"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentLeft="true"
+        android:layout_weight="50"
+        app:layout_constraintBottom_toTopOf="@+id/divider2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.35"
+        app:layout_constraintTop_toTopOf="@+id/tempo"/>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.15"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="@+id/rythm1"
+        app:layout_constraintEnd_toStartOf="@+id/rythm1View"
+        app:layout_constraintTop_toTopOf="@+id/rythm1View" />
+    <!--
+        <LinearLayout
+            android:id="@+id/clickVib"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center_horizontal"
+            android:weightSum="100">
+
+            <LinearLayout
+                android:id="@+id/clickView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="40"
+                android:weightSum="100"
+                android:gravity="right">
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="40"
+                    android:src="@drawable/ic_click"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center_vertical"
+                    android:text="Click"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:layout_weight="40">
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/vibrationView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="60"
+                android:weightSum="100"
+                android:gravity="left">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="40"
+                    android:src="@drawable/ic_vibration_gray"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="60"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center_vertical"
+                    android:text=" Vibration"
+                    android:textColor="@color/gray"
+                    android:textSize="25sp" />
+            </LinearLayout>
+
+
+        </LinearLayout> -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
