@@ -1,31 +1,19 @@
 package dz.amirak.metronome;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GestureDetectorCompat;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    //private GestureDetectorCompat mGestureDetector;
-    private Vibrator v;
-
     private GestureDetectorCompat mGestureDetectorTempo;
     private GestureDetectorCompat mGestureDetectorRythm1;
 
@@ -33,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView tempoText, rythm1Text, TAPtext, tempoName, pourcentageText;
     private View tempoView, rythm1View, root;
-    //private LinearLayout clickView, vibrationView;
 
 
     private int tempo = 120;
@@ -50,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_Metronome);
-        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -67,9 +53,6 @@ public class MainActivity extends AppCompatActivity {
         this.rythm1View = findViewById(R.id.rythm1View);
         this.root = findViewById(R.id.rootView);
 
-        //this.vibrationView = findViewById(R.id.vibrationView);
-        //this.clickView = findViewById(R.id.clickView);
-
         AudioAttributes audioAttributes = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA)
                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                 .build();
@@ -81,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
         tempoText.setText("" + tempo);
         mGestureDetectorTempo = new GestureDetectorCompat(this, new GestureListenerTempo());
         mGestureDetectorRythm1 = new GestureDetectorCompat(this, new GestureListenerRythm1());
-        //mGestureDetector = new GestureDetectorCompat(this, new GestureListener());
-
 
         tempoView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -109,40 +90,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        /*vibrationView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                click = false;
-                if(state){
-                   switch(event.getAction()) {
-                       case MotionEvent.ACTION_DOWN:
-                           mHandler.removeCallbacks(metronomeClick);
-                           break;
-                       case MotionEvent.ACTION_UP:
-                           metronomeClick.run();
-                           break;
-                   }
-                }
-                return true;
-            }
-        });
-        clickView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                click = true;
-                if(state){
-                    switch(event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            mHandler.removeCallbacks(metronomeClick);
-                            break;
-                        case MotionEvent.ACTION_UP:
-                            metronomeClick.run();
-                            break;
-                    }
-                }
-                return true;
-            }
-        });*/
     }
 
 
@@ -325,21 +272,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*private class GestureListener extends GestureDetector.SimpleOnGestureListener{
-        @Override
-        public boolean onSingleTapUp(MotionEvent e) {
-            startStopCount();
-            return super.onSingleTapUp(e);
-        }
-    }*/
-
-    /*@Override
-    public boolean onTouchEvent(MotionEvent event) {
-        mGestureDetector.onTouchEvent(event);
-        return super.onTouchEvent(event);
-    }*/
-
-    public void startStopCount(){
+        public void startStopCount(){
         if(state){
             state = false;
             root.setBackgroundColor(getResources().getColor(R.color.bg_stop));
@@ -375,16 +308,7 @@ public class MainActivity extends AppCompatActivity {
                 soundPool.play(soundMainTap, 1, 1, 0, 0, 1);
             else
                 soundPool.play(soundTap, 1, 1, 0, 0, 1);
-            /*if(click) {
-
-            }else{
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    v.vibrate(VibrationEffect.createOneShot(200, 255));
-                } else {
-                    //deprecated in API 26
-                    v.vibrate(50);
-                }
-            }*/
+            Log.d("Tag", "CLICK");
 
             if(TAP >= rythm1)
                 TAP = 1;
