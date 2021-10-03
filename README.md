@@ -1,6 +1,6 @@
 # Metronome-AppAndroid (In Progress)
   A minimalist metronome designed for android.
-The goal was to offer a metronome that I would like to have as a musician: easy to use (we kept only the most important functionality), and without ads !
+The goal was to offer a metronome that I would like to have as a musician: easy to use (I kept only the most important functionality), and without ads !
 (The app is not yet disponible on the Play Store)
 
 <p align="center">
