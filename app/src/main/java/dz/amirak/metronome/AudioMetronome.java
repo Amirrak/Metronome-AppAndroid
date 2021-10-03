@@ -39,7 +39,6 @@ public class AudioMetronome {
                 sampleRate, AudioFormat.CHANNEL_OUT_MONO,
                 AudioFormat.ENCODING_PCM_16BIT, sampleRate,
                 AudioTrack.MODE_STREAM);
-
         audioTrack.play();
     }
 

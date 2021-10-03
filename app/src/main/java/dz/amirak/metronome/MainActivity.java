@@ -5,6 +5,7 @@ import androidx.core.view.GestureDetectorCompat;
 
 import android.media.AudioAttributes;
 import android.media.SoundPool;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -14,6 +15,12 @@ import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private int debug = 0;
+
+    Runnable metronomeClick;
+    private Thread t2 = null;
+
     private GestureDetectorCompat mGestureDetectorTempo;
     private GestureDetectorCompat mGestureDetectorRythm1;
 
@@ -27,15 +34,39 @@ public class MainActivity extends AppCompatActivity {
     private int tempoMS = 500;
     private int tempoDelay = 0, rythm1Delay = 0, pourcentageDelay = 0;
 
-    private int rythm1 = 4, pourcentage = 100, TAP = 1;
+    private int rythm1 = 4, pourcentage = 100, TAP = 0;
 
-    private SoundPool soundPool;
-    private int soundMainTap, soundTap;
+    private Metronome metronome;
+    private double[] tick;
+    private int sampleRate = 8000;
 
     private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        metronomeClick = new Runnable() {
+            @Override
+            public void run() {
+                Log.d("THREAD", "THREAD 1");
+                if(TAP >= rythm1)
+                    TAP = 1;
+                else
+                    TAP += 1;
+                TAPtext.setText(""+TAP);
+
+                mHandler.postDelayed(this, tempoMS);
+            }
+        };
+
+
+        t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                metronome.play();
+            }
+        });
+
         setTheme(R.style.Theme_Metronome);
 
         super.onCreate(savedInstanceState);
@@ -53,16 +84,17 @@ public class MainActivity extends AppCompatActivity {
         this.rythm1View = findViewById(R.id.rythm1View);
         this.root = findViewById(R.id.rootView);
 
-        AudioAttributes audioAttributes = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA)
-                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                .build();
-
-        soundPool = new SoundPool.Builder().setMaxStreams(1).setAudioAttributes(audioAttributes).build();
-        soundMainTap = soundPool.load(this, R.raw.maintap, 1);
-        soundTap = soundPool.load(this, R.raw.tap,1);
+        metronome = new Metronome(70, rythm1, sampleRate, 130.81,  24.50);
 
         tempoText.setText("" + tempo);
-        mGestureDetectorTempo = new GestureDetectorCompat(this, new GestureListenerTempo());
+        root.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                t2.start();
+                return false;
+            }
+        });
+        /*mGestureDetectorTempo = new GestureDetectorCompat(this, new GestureListenerTempo());
         mGestureDetectorRythm1 = new GestureDetectorCompat(this, new GestureListenerRythm1());
 
         tempoView.setOnTouchListener(new View.OnTouchListener() {
@@ -72,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
                 if(state) {
                     if (event.getAction() == MotionEvent.ACTION_UP) {
                         metronomeClick.run();
+
+                        t2.start();
                     }
                 }
 
@@ -85,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 if(state) {
                     if (event.getAction() == MotionEvent.ACTION_UP) {
                         metronomeClick.run();
+                        t2.start();
                     }
                 }
                 return true;
@@ -284,8 +319,10 @@ public class MainActivity extends AppCompatActivity {
             mHandler.removeCallbacks(metronomeClick);
             getWindow().setNavigationBarColor(getResources().getColor(R.color.bg_stop));
             getWindow().setStatusBarColor(getResources().getColor(R.color.bg_stop));
-            TAP = 1;
+            TAP = 0;
             TAPtext.setText(""+TAP);
+            metronome.stop();
+            t2.interrupt();
         }else{
             state = true;
             root.setBackgroundColor(getResources().getColor(R.color.bg_start));
@@ -296,25 +333,7 @@ public class MainActivity extends AppCompatActivity {
             pourcentageText.setVisibility(View.VISIBLE);
             getWindow().setNavigationBarColor(getResources().getColor(R.color.bg_start));
             getWindow().setStatusBarColor(getResources().getColor(R.color.bg_start));
-        }
+        }*/
     }
 
-    public Runnable metronomeClick = new Runnable() {
-
-        @Override
-        public void run() {
-            TAPtext.setText(""+TAP);
-            if (TAP == 1)
-                soundPool.play(soundMainTap, 1, 1, 0, 0, 1);
-            else
-                soundPool.play(soundTap, 1, 1, 0, 0, 1);
-            Log.d("Tag", "CLICK");
-
-            if(TAP >= rythm1)
-                TAP = 1;
-            else
-                TAP += 1;
-            mHandler.postDelayed(metronomeClick, tempoMS);
-        }
-    };
 }
