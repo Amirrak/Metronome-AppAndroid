@@ -1,13 +1,11 @@
 package dz.amirak.metronome;
 
-import android.provider.MediaStore;
 import android.util.Log;
 
 public class Metronome {
 
     private int bpm;
     private int rythm;
-    //private int noteValue;
     private int silenceSample;
 
     private double freqTick;
@@ -25,8 +23,7 @@ public class Metronome {
         this.freqTick = freqTick;
         this.freqTock = freqTock;
         this.rythm = rythm;
-        audioMetronome = new AudioMetronome(sampleRate);
-        audioMetronome.createPlayer();
+
     }
 
     public void calcSilence(){
@@ -34,6 +31,10 @@ public class Metronome {
     }
 
     public void play(){
+        Log.d("caca","metronome play");
+        this.play = true;
+        audioMetronome = new AudioMetronome(sampleRate);
+        audioMetronome.createPlayer();
         calcSilence();
         double[] tick = audioMetronome.getSineWave(this.beatSample, this.sampleRate, this.freqTick);
         double[] tock = audioMetronome.getSineWave(this.beatSample, this.sampleRate, this.freqTock);
@@ -42,8 +43,7 @@ public class Metronome {
         int sampleCounter = 0;
         int silenceCounter = 0;
         int rythmCounter = 1;
-
-        while(play){
+        while(this.play){
             for(int i = 0; i < sound.length && play; i++){
                 if(sampleCounter < this.beatSample){        // compteur est dans l interval de temps d'un son de battement
                     if(rythmCounter == 1)                    // first beat .. TICK
@@ -71,7 +71,18 @@ public class Metronome {
     }
 
     public void stop() {
-        this.play = false;
         this.audioMetronome.destroyAudioTrack();
+    }
+
+    public void setBpm(int bpm) {
+        this.bpm = bpm;
+    }
+
+    public void setRythm (int rythm) {
+        this.rythm = rythm;
+    }
+
+    public void setPlay(boolean play) {
+        this.play = play;
     }
 }

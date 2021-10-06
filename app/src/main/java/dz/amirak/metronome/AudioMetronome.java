@@ -49,6 +49,5 @@ public class AudioMetronome {
 
     public void destroyAudioTrack() {
         audioTrack.stop();
-        audioTrack.release();
     }
 }
