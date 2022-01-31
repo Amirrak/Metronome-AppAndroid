@@ -1,6 +1,5 @@
 package dz.amirak.metronome;
 
-import android.util.Log;
 
 public class Metronome {
 
@@ -31,7 +30,6 @@ public class Metronome {
     }
 
     public void play(){
-        Log.d("caca","metronome play");
         this.play = true;
         audioMetronome = new AudioMetronome(sampleRate);
         audioMetronome.createPlayer();

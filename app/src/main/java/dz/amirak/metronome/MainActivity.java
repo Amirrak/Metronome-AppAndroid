@@ -5,7 +5,6 @@ import androidx.core.view.GestureDetectorCompat;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -87,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
                     // (when scroll to change tempo, onDown pause the metronome first, and action_up replay it)
                     if (event.getAction() == MotionEvent.ACTION_UP) {
                         metronomeClick.run();
-                        Log.d("caca", "onTouch t2 is " + String.valueOf(t2.isAlive()));
                         if(!t2.isAlive()) {
                             t2 = new Thread() {
 
@@ -181,6 +179,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onDown(MotionEvent e) {
             mHandler.removeCallbacks(metronomeClick);
+            if(t2.isAlive()) {
+                t2.interrupt();
+            }
             return super.onDown(e);
         }
 
@@ -194,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            Log.d("click", "scroll");
             if (distanceY > 10) {
                 tempo = tempo + 1;
                 if (tempo < 300) {
@@ -265,12 +265,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onDown(MotionEvent e) {
             mHandler.removeCallbacks(metronomeClick);
+            if(t2.isAlive()) {
+                t2.interrupt();
+            }
             return super.onDown(e);
         }
 
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
             startStopCount();
+
             return super.onSingleTapUp(e);
         }
 
