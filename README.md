@@ -2,9 +2,9 @@
   <img src="https://user-images.githubusercontent.com/79013044/151726768-9acbc51c-209e-435e-bba5-f84fcef313de.png" title="Screenshot de l'application">
 </p>
 
-# Metronome-App Android (In Progress)
+# Metronome-App Android [In Progress]
 A minimalist metronome designed for android.\
-***The app is not yet disponible on the Play Store**
+***The app is not yet available on the Play Store**
 
 ## Presentation of the project
 The goal was to offer a metronome that I would like to have as a musician: intuitive and easy to use (I kept only the most important functionality), light weigth, and finally without ads !!
